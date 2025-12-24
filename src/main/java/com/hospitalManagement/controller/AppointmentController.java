@@ -17,6 +17,18 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * REST Controller for Appointment Management
+ * 
+ * Provides endpoints for:
+ * - Booking appointments with pessimistic locking
+ * - Cancelling appointments
+ * - Retrieving appointment information
+ * - Checking doctor availability
+ * 
+ * All endpoints use @Valid for input validation and return standardized ApiResponse objects.
+ * Swagger annotations provide API documentation.
+ */
 @RestController
 @RequestMapping("/api/appointments")
 @RequiredArgsConstructor
@@ -25,6 +37,21 @@ public class AppointmentController {
     
     private final AppointmentService appointmentService;
     
+    /**
+     * Book a new appointment
+     * 
+     * Features:
+     * - @Valid annotation validates the request body using Bean Validation
+     * - Transaction management ensures atomic booking operation
+     * - Pessimistic locking prevents overbooking in concurrent scenarios
+     * 
+     * Validation:
+     * - Patient ID and Doctor ID are required
+     * - Appointment date must be in the future
+     * 
+     * @param appointmentDTO Appointment details to book
+     * @return ResponseEntity with created appointment or error message
+     */
     @PostMapping
     @Operation(summary = "Book an appointment", 
                description = "Books a new appointment with transaction management and pessimistic locking to prevent overbooking")
@@ -35,11 +62,22 @@ public class AppointmentController {
             return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.success(createdAppointment, "Appointment booked successfully"));
         } catch (IllegalArgumentException | IllegalStateException e) {
+            // Handle business logic exceptions (validation failures, conflicts, etc.)
             return ResponseEntity.badRequest()
                 .body(ApiResponse.error(e.getMessage()));
         }
     }
     
+    /**
+     * Cancel an existing appointment
+     * 
+     * Features:
+     * - Uses pessimistic locking to ensure atomic cancellation
+     * - Validates appointment can be cancelled (not already cancelled/completed)
+     * 
+     * @param id Appointment ID to cancel
+     * @return ResponseEntity with cancelled appointment or error message
+     */
     @PostMapping("/{id}/cancel")
     @Operation(summary = "Cancel an appointment", 
                description = "Cancels an existing appointment with transaction management")
@@ -49,6 +87,7 @@ public class AppointmentController {
             AppointmentDTO cancelledAppointment = appointmentService.cancelAppointment(id);
             return ResponseEntity.ok(ApiResponse.success(cancelledAppointment, "Appointment cancelled successfully"));
         } catch (IllegalArgumentException | IllegalStateException e) {
+            // Handle business logic exceptions
             return ResponseEntity.badRequest()
                 .body(ApiResponse.error(e.getMessage()));
         }

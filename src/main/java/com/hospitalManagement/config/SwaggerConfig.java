@@ -10,9 +10,29 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+/**
+ * Swagger/OpenAPI Configuration
+ * 
+ * Configures API documentation using OpenAPI 3.0 specification.
+ * Provides interactive API documentation accessible via Swagger UI.
+ * 
+ * Access Swagger UI at: http://localhost:8080/swagger-ui.html
+ * Access OpenAPI JSON at: http://localhost:8080/v3/api-docs
+ */
 @Configuration
 public class SwaggerConfig {
     
+    /**
+     * Configures OpenAPI documentation for the Hospital Management System
+     * 
+     * Includes:
+     * - API title, description, and version
+     * - Contact information
+     * - License information
+     * - Server URLs for different environments
+     * 
+     * @return Configured OpenAPI object
+     */
     @Bean
     public OpenAPI hospitalManagementOpenAPI() {
         return new OpenAPI()
@@ -29,9 +49,11 @@ public class SwaggerConfig {
                     .name("Apache 2.0")
                     .url("https://www.apache.org/licenses/LICENSE-2.0.html")))
             .servers(List.of(
+                // Local development server
                 new Server()
                     .url("http://localhost:8080")
                     .description("Local Development Server"),
+                // Production server (example)
                 new Server()
                     .url("https://api.hospitalmanagement.com")
                     .description("Production Server")
