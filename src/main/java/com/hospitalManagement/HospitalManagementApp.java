@@ -19,7 +19,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * - Spring Security for API protection
  * 
  * @author Manan Panchal
- * @version 0.0.1
  */
 @SpringBootApplication
 public class HospitalManagementApp {
