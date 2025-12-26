@@ -18,8 +18,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * - Swagger UI for API documentation
  * - Spring Security for API protection
  * 
- * @author Hospital Management Team
- * @version 1.0
+ * @author Manan Panchal
+ * @version 0.0.1
  */
 @SpringBootApplication
 public class HospitalManagementApp {
