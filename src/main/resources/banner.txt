@@ -1,0 +1,12 @@
+${AnsiColor.CYAN}
+╔══════════════════════════════════════════════╗
+║                                              ║
+║        Hospital Management System            ║
+║             By Manan Panchal                 ║
+║                                              ║
+╚══════════════════════════════════════════════╝
+${AnsiColor.GREEN}
+Secure • Reliable • Patient-Centric
+${AnsiColor.WHITE}
+Spring Boot ${spring-boot.version} | Java ${java.version}
+${AnsiColor.DEFAULT}
