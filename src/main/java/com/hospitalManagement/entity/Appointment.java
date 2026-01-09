@@ -8,21 +8,21 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "patients")
-public class Patient {
+@Table(name = "appointments")
+public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private Integer age;
-    private String gender;
-    private String contactNumber;
-    private String address;
+    private Long patientId;
+    private Long doctorId;
+    private LocalDateTime appointmentDate;
+    private String status; // e.g., BOOKED, CANCELLED, COMPLETED
 }

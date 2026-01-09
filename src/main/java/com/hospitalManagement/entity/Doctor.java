@@ -13,16 +13,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "patients")
-public class Patient {
+@Table(name = "doctors")
+public class Doctor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private Integer age;
-    private String gender;
+    private String specialization;
     private String contactNumber;
-    private String address;
 }
